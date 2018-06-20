@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+
+<div>
+  <form action="/" method="GET">
+    <input type="text" name="searchText"/>
+    <button type="submit" >search</button>
+  </form>
+</div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<div>
+    <form action="/tweetpost" method="GET">
+      <input type="text" name="content"/>
+      <button type="submit" >Post</button>
+    </form>
+  </div>
+
+    <p><%= user.id%></p>
+    <p><%= user.name%></p>
+    <p><img src="<%=user.imageUrl%>" /></p>
+    
+    <div>
+      <table>
+
+          <tr>
+              <td><b>created on</b></td>
+              <td><b>Like</b></td>
+              <td><b>Retweet</b></td>
+              <td><b>text</b></td>
+              <td><b>images</b></td>
+            </tr>
+        <% for(var i=0; i < tweets.length; i++) { %>
+
+
+    <tr >
+      <td><%= tweets[i].created_at %></td>
+      <td><%= tweets[i].favorite_count %></td>
+      <td><%= tweets[i].retweet_count %></td>
+      <td><%= tweets[i].text %></td>
+      <td>
+        <%
+          for(var ii = 0;ii<  (tweets[i].entities != undefined && tweets[i].entities.media != undefined ? tweets[i].entities.media.length : 0);ii++  ){
+%>
+            <img width="100px" height="100px" src="<%= tweets[i].entities.media[ii].media_url%>" />
+         <%   
+          }
+        %>
+      </td>
+        </tr>
+        <% } %>
+        </table>
+    </div>
+  </body>
+</html>
